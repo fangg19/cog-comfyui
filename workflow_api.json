@@ -198,7 +198,7 @@
   },
   "106": {
     "inputs": {
-      "lora_name": "Style_Retro.safetensors",
+      "lora_name": "flux-RealismLora.safetensors",
       "strength_model": 0.35000000000000003,
       "strength_clip": 0,
       "model": [
