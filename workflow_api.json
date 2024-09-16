@@ -234,7 +234,7 @@
   },
   "169": {
     "inputs": {
-      "clip_name": "pytorch_model.bin"
+      "clip_name": "stable-diffusion-2-1-clip.safetensors"
     },
     "class_type": "CLIPVisionLoader",
     "_meta": {

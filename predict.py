@@ -40,7 +40,7 @@ class Predictor(BasePredictor):
 
         self.comfyUI.handle_weights(
             workflow,
-            weights_to_download=["ip-adapter_sd15_light_v11.bin", "photon_v1.safetensors", "control_v11p_sd15_lineart.pth", "control_v11p_sd15_openpose.pth", "flux-RealismLora.safetensors", "v3_sd15_mm.ckpt", "ip-adapter-plus_sd15.bin", "vae-ft-mse-840000-ema-pruned.safetensors",],
+            weights_to_download=["ip-adapter_sd15_light_v11.bin", "photon_v1.safetensors", "control_v11p_sd15_lineart.pth", "control_v11p_sd15_openpose.pth", "flux-RealismLora.safetensors", "v3_sd15_mm.ckpt", "ip-adapter-plus_sd15.bin", "vae-ft-mse-840000-ema-pruned.safetensors","stable-diffusion-2-1-clip.safetensors"],
         )
         print("Setup complete")
 
