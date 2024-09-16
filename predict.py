@@ -17,6 +17,7 @@ COMFYUI_TEMP_OUTPUT_DIR = "ComfyUI/temp"
 ALL_DIRECTORIES = [OUTPUT_DIR, INPUT_DIR, COMFYUI_TEMP_OUTPUT_DIR]
 
 mimetypes.add_type("image/webp", ".webp")
+mimetypes.add_type("video/mp4,", ".mp4")
 
 # Save your example JSON to the same directory as predict.py
 api_json_file = "workflow_api.json"
@@ -34,10 +35,14 @@ class Predictor(BasePredictor):
         # Give a list of weights filenames to download during setup
         with open(api_json_file, "r") as file:
             workflow = json.loads(file.read())
+        
+        print("workflow ---", workflow)
+
         self.comfyUI.handle_weights(
             workflow,
-            weights_to_download=[],
+            weights_to_download=["ip-adapter_sd15_light_v11.bin", "photon_v1.safetensors", "control_v11p_sd15_lineart.pth", "control_v11p_sd15_openpose.pth", "Style_Retro.safetensors", "v3_sd15_mm.ckpt", "ip-adapter-plus_sd15.bin", "vae-ft-mse-840000-ema-pruned.safetensors",],
         )
+        print("Setup complete")
 
     def filename_with_extension(self, input_file, prefix):
         extension = os.path.splitext(input_file.name)[1]
@@ -46,7 +51,7 @@ class Predictor(BasePredictor):
     def handle_input_file(
         self,
         input_file: Path,
-        filename: str = "image.png",
+        filename: str = "video.mp4",
     ):
         shutil.copy(input_file, os.path.join(INPUT_DIR, filename))
 
@@ -54,15 +59,14 @@ class Predictor(BasePredictor):
     def update_workflow(self, workflow, **kwargs):
         # Below is an example showing how to get the node you need and update the inputs
 
-        # positive_prompt = workflow["6"]["inputs"]
-        # positive_prompt["text"] = kwargs["prompt"]
+        positive_prompt = workflow["96"]["inputs"]
+        positive_prompt["text"] = kwargs["prompt"]
 
-        # negative_prompt = workflow["7"]["inputs"]
-        # negative_prompt["text"] = f"nsfw, {kwargs['negative_prompt']}"
+        negative_prompt = workflow["6"]["inputs"]
+        negative_prompt["text"] = f"nsfw, {kwargs['negative_prompt']}"
 
-        # sampler = workflow["3"]["inputs"]
-        # sampler["seed"] = kwargs["seed"]
-        pass
+        sampler = workflow["670"]["inputs"]
+        sampler["seed"] = kwargs["seed"]
 
     def predict(
         self,
@@ -73,8 +77,8 @@ class Predictor(BasePredictor):
             description="Things you do not want to see in your image",
             default="",
         ),
-        image: Path = Input(
-            description="An input image",
+        video: Path = Input(
+            description="An input video",
             default=None,
         ),
         output_format: str = optimise_images.predict_output_format(),
@@ -87,10 +91,10 @@ class Predictor(BasePredictor):
         # Make sure to set the seeds in your workflow
         seed = seed_helper.generate(seed)
 
-        image_filename = None
-        if image:
-            image_filename = self.filename_with_extension(image, "image")
-            self.handle_input_file(image, image_filename)
+        video_filename = None
+        if video:
+            video_filename = self.filename_with_extension(video, "video")
+            self.handle_input_file(video, video_filename)
 
         with open(api_json_file, "r") as file:
             workflow = json.loads(file.read())
@@ -99,7 +103,7 @@ class Predictor(BasePredictor):
             workflow,
             prompt=prompt,
             negative_prompt=negative_prompt,
-            image_filename=image_filename,
+            video_filename=video_filename,
             seed=seed,
         )
 

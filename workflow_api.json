@@ -1,0 +1,775 @@
+{
+  "1": {
+    "inputs": {
+      "ckpt_name": "photon_v1.safetensors",
+      "beta_schedule": "sqrt_linear (AnimateDiff)",
+      "use_custom_scale_factor": false,
+      "scale_factor": 0.18215
+    },
+    "class_type": "CheckpointLoaderSimpleWithNoiseSelect",
+    "_meta": {
+      "title": "Load Checkpoint w/ Noise Select 🎭🅐🅓"
+    }
+  },
+  "2": {
+    "inputs": {
+      "vae_name": "vae-ft-mse-840000-ema-pruned.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "6": {
+    "inputs": {
+      "text": "embedding:BadDream, embedding:By bad artist -neg, embedding:CyberRealistic_Negative-neg, embedding:UnrealisticDream, embedding:badhandv4, embedding:easynegative, embedding:ng_deepnegative_v1_75t, (blurry), (Nipples, butt:1.3) (nsfw, nude, naked:1.3), simplified, low resolution, (face:1.2), smooth skin, mask, worst quality, low quality, text, (bad quality, Worst quality), NSFW, nude, text, watermark, low quality, medium quality, blurry, censored, wrinkles, deformed, mutated",
+      "clip": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "53": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "width": 520,
+      "height": 870,
+      "crop": "disabled",
+      "image": [
+        "122",
+        0
+      ]
+    },
+    "class_type": "ImageScale",
+    "_meta": {
+      "title": "Upscale Image"
+    }
+  },
+  "56": {
+    "inputs": {
+      "pixels": [
+        "53",
+        0
+      ],
+      "vae": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "70": {
+    "inputs": {
+      "control_net_name": "control_v11p_sd15_lineart.pth"
+    },
+    "class_type": "ControlNetLoaderAdvanced",
+    "_meta": {
+      "title": "Load Advanced ControlNet Model 🛂🅐🅒🅝"
+    }
+  },
+  "71": {
+    "inputs": {
+      "coarse": "enable",
+      "resolution": 512,
+      "image": [
+        "53",
+        0
+      ]
+    },
+    "class_type": "LineArtPreprocessor",
+    "_meta": {
+      "title": "Realistic Lineart"
+    }
+  },
+  "93": {
+    "inputs": {
+      "model_name": "v3_sd15_mm.ckpt",
+      "beta_schedule": "sqrt_linear (AnimateDiff)",
+      "motion_scale": 1,
+      "apply_v2_models_properly": false,
+      "model": [
+        "640",
+        0
+      ],
+      "context_options": [
+        "94",
+        0
+      ]
+    },
+    "class_type": "ADE_AnimateDiffLoaderWithContext",
+    "_meta": {
+      "title": "AnimateDiff Loader [Legacy] 🎭🅐🅓①"
+    }
+  },
+  "94": {
+    "inputs": {
+      "context_length": 16,
+      "context_stride": 1,
+      "context_overlap": 4,
+      "context_schedule": "uniform",
+      "closed_loop": false,
+      "fuse_method": "flat",
+      "use_on_equal_length": false,
+      "start_percent": 0,
+      "guarantee_steps": 1
+    },
+    "class_type": "ADE_AnimateDiffUniformContextOptions",
+    "_meta": {
+      "title": "Context Options◆Looped Uniform 🎭🅐🅓"
+    }
+  },
+  "96": {
+    "inputs": {
+      "text": "\"0\": \"((masterpiece, best quality)), cyberpunk young man, futuristic city background, wearing cyberpunk outfit, orange cyberpunk glasses, depth of field, detailed, sharp, 8k resolution, very detailed, cinematic lighting, trending on artstation, hyperdetailed\",\n\n\"400\": \"((masterpiece, best quality)), cyberpunk young man, futuristic city background, wearing cyberpunk outfit, orange cyberpunk glasses, depth of field, detailed, sharp, 8k resolution, very detailed, cinematic lighting, trending on artstation, hyperdetailed\"    ",
+      "max_frames": [
+        "122",
+        1
+      ],
+      "print_output": false,
+      "pre_text": [
+        "676",
+        0
+      ],
+      "app_text": [
+        "676",
+        1
+      ],
+      "start_frame": 0,
+      "end_frame": 0,
+      "pw_a": 0,
+      "pw_b": 0,
+      "pw_c": 0,
+      "pw_d": 0,
+      "clip": [
+        "106",
+        1
+      ]
+    },
+    "class_type": "BatchPromptSchedule",
+    "_meta": {
+      "title": "Batch Prompt Schedule 📅🅕🅝"
+    }
+  },
+  "100": {
+    "inputs": {
+      "strength": 0.45,
+      "start_percent": 0,
+      "end_percent": 0.5,
+      "control_net": [
+        "70",
+        0
+      ],
+      "image": [
+        "71",
+        0
+      ]
+    },
+    "class_type": "Control Net Stacker",
+    "_meta": {
+      "title": "Control Net Stacker"
+    }
+  },
+  "102": {
+    "inputs": {
+      "positive": [
+        "96",
+        0
+      ],
+      "negative": [
+        "6",
+        0
+      ],
+      "cnet_stack": [
+        "198",
+        0
+      ]
+    },
+    "class_type": "Apply ControlNet Stack",
+    "_meta": {
+      "title": "Apply ControlNet Stack"
+    }
+  },
+  "106": {
+    "inputs": {
+      "lora_name": "Style_Retro.safetensors",
+      "strength_model": 0.35000000000000003,
+      "strength_clip": 0,
+      "model": [
+        "1",
+        0
+      ],
+      "clip": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "LoraLoader",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "122": {
+    "inputs": {
+      "video": "cut_8s_portrait.mp4",
+      "force_rate": 0,
+      "force_size": "Disabled",
+      "custom_width": 712,
+      "custom_height": 1280,
+      "frame_load_cap": 250,
+      "skip_first_frames": 0,
+      "select_every_nth": 1
+    },
+    "directory": "references",
+    "class_type": "VHS_LoadVideo",
+    "_meta": {
+      "title": "Load Video (Upload) 🎥🅥🅗🅢"
+    }
+  },
+  "169": {
+    "inputs": {
+      "clip_name": "pytorch_model.bin"
+    },
+    "class_type": "CLIPVisionLoader",
+    "_meta": {
+      "title": "Load CLIP Vision"
+    }
+  },
+  "170": {
+    "inputs": {
+      "ipadapter_file": "ip-adapter-plus_sd15.bin"
+    },
+    "class_type": "IPAdapterModelLoader",
+    "_meta": {
+      "title": "IPAdapter Model Loader"
+    }
+  },
+  "172": {
+    "inputs": {
+      "width": 520,
+      "height": 872,
+      "batch_size": [
+        "122",
+        1
+      ]
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "173": {
+    "inputs": {
+      "blend_factor": 0.25,
+      "samples1": [
+        "56",
+        0
+      ],
+      "samples2": [
+        "172",
+        0
+      ]
+    },
+    "class_type": "LatentBlend",
+    "_meta": {
+      "title": "Latent Blend"
+    }
+  },
+  "191": {
+    "inputs": {
+      "b1": 0.9500000000000001,
+      "b2": 1.2,
+      "s1": 0.9,
+      "s2": 1.1,
+      "model": [
+        "93",
+        0
+      ]
+    },
+    "class_type": "FreeU_V2",
+    "_meta": {
+      "title": "FreeU_V2"
+    }
+  },
+  "197": {
+    "inputs": {
+      "detect_hand": "enable",
+      "detect_body": "enable",
+      "detect_face": "enable",
+      "resolution": 512,
+      "bbox_detector": "yolox_l.onnx",
+      "pose_estimator": "dw-ll_ucoco_384.onnx",
+      "scale_stick_for_xinsr_cn": "disable",
+      "image": [
+        "53",
+        0
+      ]
+    },
+    "class_type": "DWPreprocessor",
+    "_meta": {
+      "title": "DWPose Estimator"
+    }
+  },
+  "198": {
+    "inputs": {
+      "strength": 0.6,
+      "start_percent": 0,
+      "end_percent": 0.85,
+      "control_net": [
+        "199",
+        0
+      ],
+      "image": [
+        "197",
+        0
+      ],
+      "cnet_stack": [
+        "100",
+        0
+      ]
+    },
+    "class_type": "Control Net Stacker",
+    "_meta": {
+      "title": "Control Net Stacker"
+    }
+  },
+  "199": {
+    "inputs": {
+      "control_net_name": "control_v11p_sd15_openpose.pth"
+    },
+    "class_type": "ControlNetLoaderAdvanced",
+    "_meta": {
+      "title": "Load Advanced ControlNet Model 🛂🅐🅒🅝"
+    }
+  },
+  "211": {
+    "inputs": {
+      "facedetection": "retinaface_resnet50",
+      "codeformer_fidelity": 0.85,
+      "facerestore_model": [
+        "212",
+        0
+      ],
+      "image": [
+        "458",
+        0
+      ]
+    },
+    "class_type": "FaceRestoreCFWithModel",
+    "_meta": {
+      "title": "FaceRestoreCFWithModel"
+    }
+  },
+  "212": {
+    "inputs": {
+      "model_name": "GFPGANv1.4.pth"
+    },
+    "class_type": "FaceRestoreModelLoader",
+    "_meta": {
+      "title": "FaceRestoreModelLoader"
+    }
+  },
+  "255": {
+    "inputs": {
+      "interpolation": "LANCZOS",
+      "crop_position": "top",
+      "sharpening": 0,
+      "image": [
+        "256",
+        0
+      ]
+    },
+    "class_type": "PrepImageForClipVision",
+    "_meta": {
+      "title": "Prep Image For ClipVision"
+    }
+  },
+  "256": {
+    "inputs": {
+      "image": "cyberpunk_3.jpeg",
+      "upload": "image"
+    },
+    "directory": "references",
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "263": {
+    "inputs": {
+      "image": "cyberpunk_4.jpeg",
+      "upload": "image"
+    },
+    "directory": "references",
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "264": {
+    "inputs": {
+      "interpolation": "LANCZOS",
+      "crop_position": "top",
+      "sharpening": 0,
+      "image": [
+        "263",
+        0
+      ]
+    },
+    "class_type": "PrepImageForClipVision",
+    "_meta": {
+      "title": "Prep Image For ClipVision"
+    }
+  },
+  "265": {
+    "inputs": {
+      "image": "cyberpunk_2.webp",
+      "upload": "image"
+    },
+    "directory": "references",
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "266": {
+    "inputs": {
+      "interpolation": "LANCZOS",
+      "crop_position": "pad",
+      "sharpening": 0,
+      "image": [
+        "265",
+        0
+      ]
+    },
+    "class_type": "PrepImageForClipVision",
+    "_meta": {
+      "title": "Prep Image For ClipVision"
+    }
+  },
+  "267": {
+    "inputs": {
+      "interpolation": "LANCZOS",
+      "crop_position": "pad",
+      "sharpening": 0,
+      "image": [
+        "268",
+        0
+      ]
+    },
+    "class_type": "PrepImageForClipVision",
+    "_meta": {
+      "title": "Prep Image For ClipVision"
+    }
+  },
+  "268": {
+    "inputs": {
+      "image": "cyberpunk_1.jpeg",
+      "upload": "image"
+    },
+    "directory": "references",
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "407": {
+    "inputs": {
+      "images": [
+        "264",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "408": {
+    "inputs": {
+      "images": [
+        "255",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "409": {
+    "inputs": {
+      "images": [
+        "266",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "410": {
+    "inputs": {
+      "images": [
+        "267",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "458": {
+    "inputs": {
+      "enabled": true,
+      "swap_model": "inswapper_128.onnx",
+      "facedetection": "retinaface_resnet50",
+      "face_restore_model": "none",
+      "face_restore_visibility": 1,
+      "codeformer_weight": 0.5,
+      "detect_gender_input": "no",
+      "detect_gender_source": "no",
+      "input_faces_index": "0",
+      "source_faces_index": "0",
+      "console_log_level": 1,
+      "input_image": [
+        "670",
+        5
+      ],
+      "source_image": [
+        "459",
+        0
+      ]
+    },
+    "class_type": "ReActorFaceSwap",
+    "_meta": {
+      "title": "ReActor 🌌 Fast Face Swap"
+    }
+  },
+  "459": {
+    "inputs": {
+      "image": "WhatsApp Image 2024-09-11 at 4.36.21 PM.jpeg",
+      "upload": "image"
+    },
+    "directory": "references",
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "576": {
+    "inputs": {
+      "frame_rate": 25,
+      "loop_count": 0,
+      "filename_prefix": "AnimateDiff",
+      "format": "video/h265-mp4",
+      "pix_fmt": "yuv420p10le",
+      "crf": 22,
+      "save_metadata": true,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "211",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Video Combine 🎥🅥🅗🅢"
+    }
+  },
+  "640": {
+    "inputs": {
+      "weight": 0.7000000000000001,
+      "weight_type": "linear",
+      "start_at": 0,
+      "end_at": 1,
+      "embeds_scaling": "V only",
+      "model": [
+        "106",
+        0
+      ],
+      "ipadapter": [
+        "170",
+        0
+      ],
+      "pos_embed": [
+        "641",
+        0
+      ],
+      "clip_vision": [
+        "169",
+        0
+      ]
+    },
+    "class_type": "IPAdapterEmbeds",
+    "_meta": {
+      "title": "IPAdapter Embeds"
+    }
+  },
+  "641": {
+    "inputs": {
+      "method": "concat",
+      "embed1": [
+        "642",
+        0
+      ],
+      "embed2": [
+        "643",
+        0
+      ],
+      "embed3": [
+        "644",
+        0
+      ],
+      "embed4": [
+        "645",
+        0
+      ]
+    },
+    "class_type": "IPAdapterCombineEmbeds",
+    "_meta": {
+      "title": "IPAdapter Combine Embeds"
+    }
+  },
+  "642": {
+    "inputs": {
+      "weight": 1,
+      "ipadapter": [
+        "170",
+        0
+      ],
+      "image": [
+        "264",
+        0
+      ],
+      "clip_vision": [
+        "169",
+        0
+      ]
+    },
+    "class_type": "IPAdapterEncoder",
+    "_meta": {
+      "title": "IPAdapter Encoder"
+    }
+  },
+  "643": {
+    "inputs": {
+      "weight": 1,
+      "ipadapter": [
+        "170",
+        0
+      ],
+      "image": [
+        "255",
+        0
+      ],
+      "clip_vision": [
+        "169",
+        0
+      ]
+    },
+    "class_type": "IPAdapterEncoder",
+    "_meta": {
+      "title": "IPAdapter Encoder"
+    }
+  },
+  "644": {
+    "inputs": {
+      "weight": 1,
+      "ipadapter": [
+        "170",
+        0
+      ],
+      "image": [
+        "266",
+        0
+      ],
+      "clip_vision": [
+        "169",
+        0
+      ]
+    },
+    "class_type": "IPAdapterEncoder",
+    "_meta": {
+      "title": "IPAdapter Encoder"
+    }
+  },
+  "645": {
+    "inputs": {
+      "weight": 1,
+      "ipadapter": [
+        "170",
+        0
+      ],
+      "image": [
+        "267",
+        0
+      ],
+      "clip_vision": [
+        "169",
+        0
+      ]
+    },
+    "class_type": "IPAdapterEncoder",
+    "_meta": {
+      "title": "IPAdapter Encoder"
+    }
+  },
+  "670": {
+    "inputs": {
+      "seed": 661,
+      "steps": 20,
+      "cfg": 6.300000000000001,
+      "sampler_name": "dpmpp_2m_sde",
+      "scheduler": "karras",
+      "denoise": 1,
+      "preview_method": "auto",
+      "vae_decode": "true",
+      "model": [
+        "191",
+        0
+      ],
+      "positive": [
+        "102",
+        0
+      ],
+      "negative": [
+        "102",
+        1
+      ],
+      "latent_image": [
+        "173",
+        0
+      ],
+      "optional_vae": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "KSampler (Efficient)",
+    "_meta": {
+      "title": "KSampler (Efficient)"
+    }
+  },
+  "676": {
+    "inputs": {
+      "text": "(sharp), consistent color scheme",
+      "text_b": "(best quality), cinematic lights",
+      "text_c": "",
+      "text_d": ""
+    },
+    "class_type": "Text String",
+    "_meta": {
+      "title": "PRE TEXT | APP TEXT"
+    }
+  }
+}
