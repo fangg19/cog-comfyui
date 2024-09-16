@@ -348,33 +348,6 @@
       "title": "Load Advanced ControlNet Model 🛂🅐🅒🅝"
     }
   },
-  "211": {
-    "inputs": {
-      "facedetection": "retinaface_resnet50",
-      "codeformer_fidelity": 0.85,
-      "facerestore_model": [
-        "212",
-        0
-      ],
-      "image": [
-        "458",
-        0
-      ]
-    },
-    "class_type": "FaceRestoreCFWithModel",
-    "_meta": {
-      "title": "FaceRestoreCFWithModel"
-    }
-  },
-  "212": {
-    "inputs": {
-      "model_name": "GFPGANv1.4.pth"
-    },
-    "class_type": "FaceRestoreModelLoader",
-    "_meta": {
-      "title": "FaceRestoreModelLoader"
-    }
-  },
   "255": {
     "inputs": {
       "interpolation": "LANCZOS",
@@ -527,33 +500,7 @@
       "title": "Preview Image"
     }
   },
-  "458": {
-    "inputs": {
-      "enabled": true,
-      "swap_model": "inswapper_128.onnx",
-      "facedetection": "retinaface_resnet50",
-      "face_restore_model": "none",
-      "face_restore_visibility": 1,
-      "codeformer_weight": 0.5,
-      "detect_gender_input": "no",
-      "detect_gender_source": "no",
-      "input_faces_index": "0",
-      "source_faces_index": "0",
-      "console_log_level": 1,
-      "input_image": [
-        "670",
-        5
-      ],
-      "source_image": [
-        "459",
-        0
-      ]
-    },
-    "class_type": "ReActorFaceSwap",
-    "_meta": {
-      "title": "ReActor 🌌 Fast Face Swap"
-    }
-  },
+  
   "459": {
     "inputs": {
       "image": "WhatsApp Image 2024-09-11 at 4.36.21 PM.jpeg",
