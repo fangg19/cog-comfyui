@@ -58,7 +58,7 @@ class Predictor(BasePredictor):
     # Update nodes in the JSON workflow to modify your workflow based on the given inputs
     def update_workflow(self, workflow, **kwargs):
         # Below is an example showing how to get the node you need and update the inputs
-
+        pass
         positive_prompt = workflow["96"]["inputs"]
         positive_prompt["text"] = kwargs["prompt"]
 
