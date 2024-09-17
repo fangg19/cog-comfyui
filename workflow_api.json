@@ -226,7 +226,6 @@
       "skip_first_frames": 0,
       "select_every_nth": 1
     },
-    "directory": "references",
     "class_type": "VHS_LoadVideo",
     "_meta": {
       "title": "Load Video (Upload) 🎥🅥🅗🅢"
