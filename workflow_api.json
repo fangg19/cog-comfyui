@@ -217,7 +217,7 @@
   },
   "122": {
     "inputs": {
-      "video": "cut_8s_portrait.mp4",
+      "video": "",
       "force_rate": 0,
       "force_size": "Disabled",
       "custom_width": 712,
