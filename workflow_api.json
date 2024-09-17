@@ -1,7 +1,7 @@
 {
   "1": {
     "inputs": {
-      "ckpt_name": "photon_v1.safetensors",
+      "ckpt_name": "ponyDiffusionV6XL_v6StartWithThisOne.safetensors",
       "beta_schedule": "sqrt_linear (AnimateDiff)",
       "use_custom_scale_factor": false,
       "scale_factor": 0.18215
