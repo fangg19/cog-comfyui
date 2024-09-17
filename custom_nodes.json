@@ -200,5 +200,9 @@
   {
     "repo": "https://github.com/TheMistoAI/MistoControlNet-Flux-dev",
     "commit": "79e3982"
+  },
+  {
+    "repo": "https://github.com/mav-rik/facerestore_cf",
+    "commit": "67f90bc"
   }
 ]
