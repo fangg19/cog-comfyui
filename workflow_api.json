@@ -392,7 +392,7 @@
   },
   "256": {
     "inputs": {
-      "image": "cyberpunk_3.jpeg",
+      "image": "",
       "upload": "image"
     },
     "directory": "references",
@@ -403,7 +403,7 @@
   },
   "263": {
     "inputs": {
-      "image": "cyberpunk_4.jpeg",
+      "image": "",
       "upload": "image"
     },
     "directory": "references",
@@ -429,7 +429,7 @@
   },
   "265": {
     "inputs": {
-      "image": "cyberpunk_2.webp",
+      "image": "",
       "upload": "image"
     },
     "directory": "references",
@@ -470,7 +470,7 @@
   },
   "268": {
     "inputs": {
-      "image": "cyberpunk_1.jpeg",
+      "image": "",
       "upload": "image"
     },
     "directory": "references",
@@ -556,7 +556,7 @@
   },
   "459": {
     "inputs": {
-      "image": "WhatsApp Image 2024-09-11 at 4.36.21 PM.jpeg",
+      "image": "",
       "upload": "image"
     },
     "directory": "references",
